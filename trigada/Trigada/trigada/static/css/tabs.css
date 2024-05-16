@@ -1,0 +1,65 @@
+
+.tab-title {
+    font-size: 48px;
+    color: var(--white);
+    margin: 25px 0;
+}
+
+.download-block {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.guitar-pro-icon {
+    width: 100px;
+}
+
+.file-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100px;
+}
+
+.file-name-text {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.download-text {
+    font-size: 24px;
+    color: var(--gp-color);
+}
+
+.information-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.information-text-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-text {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.info-text-value {
+    font-size: 24px;
+    color: var(--turquoise);
+    text-align: center;
+}
+
+.maker-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+}

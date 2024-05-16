@@ -1,0 +1,51 @@
+
+.maker-block {
+    display: flex;
+}
+
+.maker-information {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+.maker-avatar {
+    width: 500px;
+    border-radius: 30px;
+    margin: 25px;
+}
+
+.maker-fullname {
+    font-size: 48px;
+    color: var(--light-blue);
+}
+
+.maker-username {
+    font-size: 24px;
+    color: var(--purple);
+}
+
+.maker-name-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.maker-user-info-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-info-text {
+    font-size: 18px;
+    color: var(--light-blue);
+    margin: 2px 0;
+}
+
+.separator {
+    border: 1px solid var(--dark-blue);
+    width: 100%;
+    margin: 5px 0;
+}

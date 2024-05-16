@@ -1,0 +1,37 @@
+
+.musician-image {
+    width: 400px;
+    border-radius: 200px;
+    margin-bottom: 50px;
+}
+
+.musician-username {
+    font-size: 48px;
+    color: var(--white);
+}
+
+.musician-text {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.songs-list-title {
+    font-size: 48px;
+    color: var(--light-blue);
+    margin: 50px 0 20px 0;
+}
+
+.songs-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-text {
+    font-size: 26px;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.song-text:hover {
+    scale: 1.1;
+}

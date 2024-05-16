@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
+
+.page-title {
+    font-size: 64px;
+    color: var(--white);
+}
+
+.page-text {
+    font-size: 18px;
+    width: 80%;
+    text-align: center;
+    color: var(--white);
+}
+
+.page-subtitle {
+    font-size: 48px;
+    color: var(--white);
+}
+
+.block-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    margin: 25px;
+}
+
+.maker-avatar {
+    margin: 10px;
+}
+
+.maker-name {
+    font-size: 24px;
+    color: var(--white);
+}
+
+.maker-nickname {
+    font-size: 24px;
+}
+
+.image-title-full-name {
+    position: absolute;
+    z-index: 125;
+    top: 250px;
+}

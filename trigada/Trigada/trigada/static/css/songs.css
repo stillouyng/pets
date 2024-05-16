@@ -1,0 +1,82 @@
+
+.search-form {
+    display: flex;
+}
+
+.notification  {
+    width: 500px;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+    color: var(--white);
+}
+
+.search-input {
+    padding: 20px 10px;
+    width: 400px;
+    border: 1px solid var(--blue);
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    font-size: 24px;
+    color: var(--white);
+    background-color: var(--light-dark);
+}
+
+.search-button {
+    padding: 20px 10px;
+    border: 1px solid var(--blue);
+    color: var(--white);
+    font-size: 24px;
+    background-color: var(--light-dark);
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.music-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.song-block {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.musician-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    object-fit: contain;
+    margin: 10px;
+}
+
+.musician-link {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 24px;
+}
+
+.dash {
+    font-size: 24px;
+    color: var(--white);
+    height: auto;
+    min-width: 30px;
+}
+
+.song-link {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 24px;
+}
+
+.musician-link:hover, .song-link:hover {
+    scale: 1.1;
+}
+
+.music-error-text {
+    font-size: 24px;
+    color: var(--white);
+    text-align: center;
+}

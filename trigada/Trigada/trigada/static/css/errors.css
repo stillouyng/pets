@@ -1,0 +1,19 @@
+
+.error-text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    bottom: 50%;
+    top: 50%;
+}
+
+.error-title {
+    font-size: 64px;
+    color: var(--blue);
+}
+
+.font-error {
+    font-size: 48px;
+    color: var(--dark-blue);
+}

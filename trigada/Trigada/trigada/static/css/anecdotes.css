@@ -1,0 +1,82 @@
+
+p, span, li, ul, em, br, strong, u, s, label, input, select, option, button {
+    background-color: transparent;
+}
+
+.anecdotes-head-block {
+    margin-bottom: 50px;
+}
+
+.anecdotes-title {
+    font-size: 48px;
+    margin-right: 10px;
+    color: var(--blue);
+}
+
+.write-anecdote-svg:hover {
+    cursor: pointer;
+    scale: 1.05;
+}
+
+.anecdotes-list {
+    display: ruby;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+}
+
+.anecdote-block {
+    display: inline-block;
+    margin: 30px;
+    width: 400px;
+    overflow: hidden;
+    padding: 30px;
+    border-radius: 25px;
+    background-color: var(--white);
+}
+
+.maker-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.form-anecdote {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background-color: var(--turquoise);
+    border-radius: 50px;
+    position: absolute;
+}
+
+label {
+    font-size: 24px;
+    color: var(--block);
+}
+
+input, select {
+    padding: 10px 5px;
+    border-radius: 10px;
+    border: 1px solid var(--black);
+    width: 300px;
+    font-size: 18px;
+}
+
+button {
+    margin-top: 30px;
+    padding: 10 5px;
+    border-radius: 10px;
+    border: 1px solid var(--black);
+    width: 100px;
+    font-size: 24px;
+}
