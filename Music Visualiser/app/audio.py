@@ -6,7 +6,8 @@ import json
 class AudioConverter:
     def __init__(self, audio_file: str):
         self.audio = audio_file
-        self.base_path = "audio/"
+        self.base_path: str = "/audio/"
+        self.config = None
 
     def get_extension(self) -> str:
         """
@@ -30,8 +31,7 @@ class AudioConverter:
         if self.get_extension() == "wav":
             return self.audio
         elif self.get_extension() == "mp3":
-            print(f"{self.base_path}{self.audio}")
-            audio = AudioSegment.from_mp3(f"{self.base_path}{self.audio}")
+            audio = AudioSegment.from_mp3(r"{}{}".format(self.base_path, self.audio))
             audio.export(f"{self.base_path}{self.get_audio_name()}.wav", format="wav")
 
 
@@ -42,7 +42,7 @@ class AudioParser:
 
     def get_tempo_name(self, tempo: int) -> str:
         """
-        Get tempo name by Malters metronome
+        Get tempo name by Malter's metronome
         :param tempo:
         :return tempo name | str:
         """
