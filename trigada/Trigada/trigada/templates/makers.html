@@ -1,0 +1,30 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+{{ makers.user.username }}
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/makers.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="maker-block transparent">
+        <img class="maker-avatar transparent" src="/media/{{ makers.image }}">
+        <div class="maker-information transparent">
+            <div class="maker-name-block transparent">
+                <p class="maker-fullname comfortaa transparent">{{ makers.user.first_name }} {{makers.user.last_name }}</p>
+                <p class="maker-username comfortaa transparent">@{{ makers.user.username }}</p>
+            </div>
+            <div class="maker-user-info-block transparent">
+                <div class="separator transparent"></div>
+                <p class="user-info-text comfortaa transparent">Date joined: {{ makers.user.date_joined }}</p>
+                <div class="separator transparent"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

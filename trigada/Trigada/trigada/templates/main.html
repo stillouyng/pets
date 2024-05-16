@@ -1,0 +1,57 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+TRIGADA
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/main_css.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <p class="page-title oxanium transparent">You are welcome!</p>
+	<p class="page-text oxanium transparent">Here is TRIGADA!</p>
+	<p class="page-text oxanium transparent">Glad to present it to all of us!</p>
+	<p class="page-text oxanium transparent">You can find here guitar tabs (gp format)🎸, interesting blogs (maybe not so interesting)📰, old funny (for us) videos📹, and anecdotes🥸.</p>
+	<p class="page-text oxanium transparent">Site was created by us for us. Don't judge the quality 🤍</p>
+	<p class="page-subtitle oxanium transparent">official makers</p>
+	<div class="section over-hide px-4 px-sm-0 transparent">
+		<div class="container transparent">
+			<div class="row justify-content-center transparent">
+				<div class="col-lg-10 col-xl-8 align-self-center padding-tb transparent">
+					<div class="section mx-auto text-center slider-height-padding transparent">
+						{% for maker in makers %}
+							<style>
+								.checkbox#{{ maker.user.username }} + label{
+  									background-image: url("media/{{ maker.image }}");
+								}
+								ul li:nth-child({{ forloop.counter }}) {
+									background-image: url("media/{{ maker.image }}");
+								}
+								.checkbox#{{ maker.user.username }}:checked ~ ul li:nth-child({{ forloop.counter }}) {
+									opacity: 1;
+									pointer-events: auto;
+									border-radius: 16px;
+									cursor: pointer;
+								}
+							</style>
+							<input class="checkbox transparent" type="radio" id="{{ maker.user.username }}" name="slider"{% if forloop.first %}checked{% endif %}/>
+							<label for="{{ maker.user.username }}"></label>
+						{% endfor %}
+						<ul>
+						{% for maker in makers %}
+							<li><span class="comfortaa maker-name transparent">{{ maker.user.username }}</span></li>
+						{% endfor %}
+						</ul>
+				    </div>
+			    </div>
+	      	</div>
+	    </div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static 'js/links_to_users.js' %}"></script>
+{% endblock %}

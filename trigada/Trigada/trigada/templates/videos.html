@@ -1,0 +1,52 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+{% load embed_video_tags %}
+
+{% block title %}
+VIDEOS
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/videos.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <p class="video-title oxanium transparent">Videos</p>
+    <div class="videos-content-main transparent">
+        {% for item in videos|slice:":3" %}
+            <div class="video-block transparent">
+                {% video item.url '360x250' %}
+                <p class="video-text oxanium transparent">{{ item.title }}</p>
+                <div class="maker-avatars-wrapper transparent">
+                    <p class="video-text-creators oxanium transparent">Contributed: </p>
+                    <div class="maker-avatars transparent">
+                        {% for user in item.users.all %}
+                            <img id="{{ user.user.username }}" class="maker-image transparent" src="/media/{{ user.image }}">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="video-separator"></div>
+    <div class="videos-content-second transparent">
+        {% for item in videos|slice:"3:" %}
+            <div class="video-block transparent">
+                {% video item.url '315x200' %}
+                <p class="video-text oxanium transparent">{{ item.title }}</p>
+                <div class="maker-avatars-wrapper transparent">
+                    <p class="video-text-creators oxanium transparent">Contributed: </p>
+                    <div class="maker-avatars transparent">
+                        {% for user in item.users.all %}
+                            <img id="{{ user.user.username }}" class="maker-image transparent" src="/media/{{ user.image }}">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/to_users.js' %}"></script>
+{% endblock %}

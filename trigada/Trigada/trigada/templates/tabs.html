@@ -1,0 +1,47 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+    {{ tab.musician.username }} - {{ tab.song_name }}
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <span class="tab-title oxanium transparent">{{ tab.musician.username }} - {{ tab.song_name }}</span>
+    <div class="transparent">
+        <div class="download-block transparent">
+            <img class="guitar-pro-icon transparent" src="{% static 'img/guitar-pro-logo.png' %}">
+            <div class="file-name oxanium transparent">
+                <span class="file-name-text oxanium transparent">{% for filename in tab.get_filename %}{{ filename }}{% endfor %}</span>
+                <a class='download-text oxanium transparent' href="/media/{{ tab.file }}">Download</a>
+            </div>
+        </div>
+        <div class="information-block transparent">
+            <div class="information-text-block transparent">
+                <span class="info-text oxanium transparent">Album: </span>
+                <span class="info-text-value oxanium transparent">{{ tab.album }}</span>
+            </div>
+            <div class="information-text-block transparent">
+                <span class="info-text oxanium transparent">Year: </span>
+                <span class="info-text-value oxanium transparent">{{ tab.year }}</span>
+            </div>
+            {% if tab.comments %}
+                <span class="info-text oxanium transaprent">Comments: </span>
+                <span class="info-text-value oxanium transparent">{{ tab.comments }}</span>
+            {% endif %}
+            <div class="information-text-block transparent">
+                <span class="info-text oxanium transparent">Contributed: </span>
+                {% for user in tab.users.all %}
+                    <img id="{{ user.slug }}" class="maker-image oxanium transparent" src="/media/{{ user.image }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/to_users.js' %}"></script>
+{% endblock %}

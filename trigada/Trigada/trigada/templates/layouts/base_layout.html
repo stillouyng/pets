@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <link type="image/png" sizes="16x16" rel="icon" href="{% static 'img/favicons/favicon16.png' %}">
+    <link type="image/png" sizes="32x32" rel="icon" href="{% static 'img/favicons/favicon32.png' %}">
+    <link type="image/png" sizes="120x120" rel="icon" href="{% static 'img/favicons/favicon96.png' %}">
+    <link type="image/png" sizes="120x120" rel="icon" href="{% static 'img/favicons/favicon120.png' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/base_layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/colors.css' %}">
+    {% block header %}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header class="header">
+        <img class="menu-image transparent" id="menu-button" src="{% static 'img/menu_button.png' %}">
+        <div class="logo transparent">
+            <img class="transparent" src="{% static 'img/logo.png' %}">
+            <span class="logo-font oxanium transparent">TRIGADA</span>
+            <img class="transparent" src="{% static 'img/lines.png' %}">
+        </div>
+    </header>
+    <div class="menu-window transparent" id="menu-window">
+        <a href="/" class="menu-font menu-link oxanium transparent">Main</a>
+        <a href="/videos" class="menu-font menu-link oxanium transparent">Videos</a>
+        <a href="/songs" class="menu-font menu-link oxanium transparent">Guitar Pro Tabs</a>
+        <a href="/anecdotes" class="menu-font menu-link oxanium transparent">Anecdotes</a>
+        <a href="/blog" class="menu-font menu-link oxanium transparent">Blog</a>
+        <div class="menu-separator transparent"></div>
+        {% if user.is_authenticated %}
+            <a href="/accounts/profile/" class="menu-font menu-link oxanium transparent">Profile</a>
+        {% else %}
+            <a href="/accounts/login/" class="menu-font menu-link oxanium transparent">Log in</a>
+        {% endif %}
+    </div>
+    <div class="wrapper transparent">
+        {% block wrapper %}
+        {% endblock %}
+    </div>
+	<img class="background-image transparent" src="{% static 'img/heart.png' %}">
+</body>
+<footer>
+    <div class="footer-info transparent">
+        <p class="footer-text oxanium transparent">(c) Three of Gads. Still alive for making memes.</p>
+        <p class="footer-text oxanium transparent">2024</p>
+    </div>
+    {% block scripts %}
+    {% endblock %}
+    <script src="{% static 'js/layout/base_layout.js' %}"></script>
+</footer>
+</html>

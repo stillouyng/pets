@@ -1,0 +1,51 @@
+{% extends '../layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+login
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/layout/accounts_layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+
+    {% if form.errors %}
+        <p class="login-error oxanium transparent">Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p class="login-title oxanium transparent">Your account doesn't have access to this page. To proceed, please log in with an account that has access.</p>
+        {% else %}
+            <p class="login-title oxanium transparent">Please log in to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}" class="form-wrapper oxanium transparent">
+        {% csrf_token %}
+        <table class="transparent">
+            <tr>
+                <td class="oxanium">{{ form.username.label_tag }}</td>
+                <td class="oxanium">{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td class="oxanium">{{ form.password.label_tag }}</td>
+                <td class="oxanium">{{ form.password }}</td>
+            </tr>
+        </table>
+
+        <input class="input-login oxanium transparent" type="submit" value="login">
+        <input class="transparent" type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <p class="lost-password-p transparent">
+        <a class="lost-password oxanium transparent" href="{% url 'password_reset' %}">Lost password?</a>
+    </p>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

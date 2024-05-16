@@ -1,0 +1,42 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+Guitar Pro Tabs
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/songs.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    {% if form.errors %}
+        <p class="login-error oxanium transparent">Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    <form class="search-form transparent" action="{% url 'songs' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <label class="form-label oxanium transparent" for="{{ field.auto_id }}"></label>
+            {{ field }}
+        {% endfor %}
+        <button class="search-button oxanium transparent" type="submit">Search</button>
+    </form>
+    <span class="notification oxanium transparent">So far, the search is only possible by the nickname of the musician or by the name of the song. Sorry 😔</span>
+    {% if tabs %}
+        <div class="music-list transparent">
+        {% for tab in tabs %}
+            <div class="song-block transparent">
+                <img class="musician-image transparent" src="/media/{{ tab.musician.image }}">
+                <a class="musician-link oxanium transparent" href="/musician/{{ tab.musician.slug }}">{{ tab.musician }}</a>
+                <span class="dash oxanium transparent">&nbsp;–&nbsp;</span>
+                <a class="song-link oxanium transparent" href="/tabs/{{ tab.slug }}">{{ tab.song_name }}</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <span class="music-error-text oxanium transparent">There is no such songs or musicians 😞</span>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

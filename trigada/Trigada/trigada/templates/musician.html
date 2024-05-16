@@ -1,0 +1,33 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+{{ musician.username }}
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/musician.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    {% if musician %}
+        <div class="image transparent" style="width: 400px; height: 400px; border-radius: 200px; background-image: url(/media/{{ musician.image }}); background-size: cover;">
+<!--            <img class="musician-image transparent" src="/media/{{ musician.image }}">-->
+        </div>
+        <span class="musician-username oxanium transparent">{{ musician.username }}</span>
+        <span class="musician-text oxanium transparent">{{ musician.first_name }} {{ musician.last_name }}</span>
+        {% if songs %}
+            <span class="songs-list-title oxanium transparent">Songs</span>
+            <div class="songs-list transparent">
+                {% for song in songs %}
+                    <a class="song-text oxanium transparent" href="/tabs/{{ song.slug }}">{{ song.song_name }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <span class="musician-username oxanium transparent">There is no such a musician 😞</span>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

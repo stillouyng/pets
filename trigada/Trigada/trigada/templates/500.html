@@ -1,0 +1,20 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+500
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/errors.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <div class="error-text">
+        <p class="error-title oxanium">Errno 500.</p>
+        <p class="font-error oxanium">Ops! I cannot find the file you requested!</p>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
