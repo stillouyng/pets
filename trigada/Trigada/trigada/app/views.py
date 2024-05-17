@@ -28,7 +28,6 @@ def anecdote_view(request):
         form = forms.AnecdoteForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print(request.user)
             anecdote = models.Anecdote(
                 title=data.get('title'),
                 text=data.get('text'),
@@ -39,14 +38,6 @@ def anecdote_view(request):
     form = forms.AnecdoteForm()
     context = {"anecdotes": anecdotes, "form": form}
     return render(request, template_name="anecdotes.html", context=context)
-
-
-@login_required
-def save_anecdote(request):
-    if request.method == "POST":
-        form = forms.AnecdoteForm(request.POST)
-        if form.is_valid():
-            form.save()
 
 
 @login_required
@@ -96,4 +87,16 @@ def tab_view(request, slug: str):
 
 
 def blog_view(request):
-    return render(request, template_name="blog.html")
+    if request.method == "POST":
+        form = forms.BlogForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            blog = models.Blog(
+                title=data.get('title'),
+                text=data.get('text'),
+                writer=models.Person.objects.get(user=request.user)
+            )
+            blog.save()
+    blogs = models.Blog.objects.all()
+    form = forms.BlogForm()
+    return render(request, template_name="blog.html", context={"blogs": blogs, "form": form})

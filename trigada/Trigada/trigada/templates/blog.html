@@ -12,7 +12,25 @@ Blog
 
 {% block wrapper %}
     <span class="blog-title oxanium transparent">Blog</span>
+    {% if blogs %}
+        <div class="block transparent">
+            {% for blog in blogs %}
+                <div class="blog-block transparent">
+                    <span class="blog-name oxanium transparent">{{ blog.title }}</span>
+                    {{ blog.text|safe }}
+                    <div class="blog-footer transparent">
+                        <span class="date-added oxanium transparent">{{ blog.added }}</span>
+                        <img class="maker-image transparent" src="/media/{{ blog.user.image }}">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <span class="no-blog-error oxanium transparent">No blogs available :(</span>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/to_users.js' %}"></script>
+    <script src="{% static 'js/blog.js' %}"></script>
 {% endblock %}

@@ -24,3 +24,10 @@ class AnecdoteForm(ModelForm):
     class Meta:
         model = models.Anecdote
         fields = ("title", "text")
+
+
+class BlogForm(ModelForm):
+
+    class Meta:
+        model = models.Blog
+        fields = ("title", "text")
