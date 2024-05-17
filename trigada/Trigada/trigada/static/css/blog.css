@@ -41,6 +41,13 @@ p {
     color: var(--black);
 }
 
+.separator {
+    border: 1px solid var(--black);
+    width: 100%;
+    margin: 5px;
+    height: 0;
+}
+
 .blog-footer {
     display: flex;
     align-items: center;
