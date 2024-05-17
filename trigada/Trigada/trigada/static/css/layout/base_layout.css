@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-
+/* Layout style */
 
 * {
     margin: 0;
@@ -22,7 +19,7 @@ header {
     height: 88px;
     background-color: var(--light-dark);
     position: relative;
-    z-index: 10;
+    z-index: 20;
 }
 
 .header {
@@ -65,30 +62,6 @@ header {
     background: transparent;
 }
 
-.oxanium {
-    font-family: "Oxanium", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.comfortaa {
-    font-family: "Comfortaa", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.honk {
-    font-family: "Honk", system-ui;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-variation-settings:
-        "MORF" 15,
-        "SHLN" 50;
-}
-
 .logo-font {
     font-size: 64px;
     margin: 0px 45px;
@@ -105,7 +78,7 @@ header {
     border-top: 5px solid var(--dark);
     border-radius: 0 0 25px 0;
     position: absolute;
-    z-index: 9;
+    z-index: 15;
     transform: translateY(-150%);
 }
 
