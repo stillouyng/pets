@@ -10,6 +10,12 @@ TRIGADA
     <link rel="stylesheet" href="{% static 'css/slider.css' %}">
 {% endblock %}
 
+{% block audio %}
+	<audio id="player" controls autoplay="autoplay">
+		<source src="{% static 'audio/Derek_Pope_-_Encore.mp3' %}" type="audio/mp3">
+	</audio>
+{% endblock %}
+
 {% block wrapper %}
     <p class="page-title oxanium transparent">You are welcome!</p>
 	<p class="page-text oxanium transparent">Here is TRIGADA!</p>
@@ -53,5 +59,10 @@ TRIGADA
 {% endblock %}
 
 {% block scripts %}
+	<script src="https://cdn.plyr.io/3.4.7/plyr.js"></script>
+	<script>
+		const player = new Plyr('#player');
+		player.volume = 0.1;
+	</script>
 	<script src="{% static 'js/links_to_users.js' %}"></script>
 {% endblock %}

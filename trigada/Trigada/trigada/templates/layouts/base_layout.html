@@ -12,6 +12,8 @@
     <link type="image/png" sizes="120x120" rel="icon" href="{% static 'img/favicons/favicon120.png' %}">
     <link rel="stylesheet" href="{% static 'css/layout/base_layout.css' %}">
     <link rel="stylesheet" href="{% static 'css/layout/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/layout/audio.css' %}">
     {% block header %}
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
@@ -38,6 +40,8 @@
             <a href="/accounts/login/" class="menu-font menu-link oxanium transparent">Log in</a>
         {% endif %}
     </div>
+    {% block audio %}
+    {% endblock %}
     <div class="wrapper transparent">
         {% block wrapper %}
         {% endblock %}
