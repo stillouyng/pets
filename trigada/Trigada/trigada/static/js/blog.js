@@ -5,3 +5,10 @@ Array.prototype.forEach.call(blogs, function(blog){
         blog.style.height = "auto";
     });
 });
+
+
+document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("blog")) {
+        console.log('blog clicked!');
+    }
+});
