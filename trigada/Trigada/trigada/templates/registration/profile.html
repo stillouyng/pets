@@ -59,7 +59,10 @@ Profile - {{ profile.user.username }}
                     {{ music_form.as_p }}
                     <input id="send-music-form" class="send-an-music-form-button oxanium transparent" type="submit" placeholder="Upload">
                 </form>
-                <span class="profile-text transparent">{% for song_name in profile.get_filename %}{{ song_name }}{% endfor %}</span>
+                <div class="current-song-block form-upload-song transaprent">
+                    <span class="default-text transparent">Current song: </span>
+                    <span class="default-text small-font transparent">{% for song_name in profile.get_filename %}{{ song_name }}{% endfor %}</span>
+                </div>
             {% endif %}
         </div>
     </div>

@@ -92,6 +92,13 @@
     display: flex;
 }
 
+.default-text {
+    font-size: 18px;
+    color: var(--white);
+    margin: 10px 5px 10px 0;
+    display: inline-flex;
+}
+
 .bool-add-info {
     display: flex;
     align-items: center;
@@ -164,4 +171,14 @@
     background-color: var(--light-blue);
     font-size: 24px;
     cursor: pointer;
+}
+
+
+.current-song-block {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.small-font {
+    font-size: 16px;
 }
