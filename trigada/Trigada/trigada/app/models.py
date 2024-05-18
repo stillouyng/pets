@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from embed_video.fields import EmbedVideoField
 from ckeditor_uploader import fields
@@ -9,6 +10,11 @@ class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_maker = models.BooleanField(verbose_name="Is Maker")
     image = models.ImageField(verbose_name="Avatar", default="makers/image/default.png", upload_to="makers/image/")
+    song = models.FileField(
+        verbose_name="Song",
+        default="makers/songs/Derek_Pope_-_Encore.mp3",
+        upload_to="makers/songs/",
+        validators=[FileExtensionValidator(allowed_extensions=['mp3'])])
     slug = models.CharField(verbose_name="Slug", max_length=100)
 
     def __str__(self):
