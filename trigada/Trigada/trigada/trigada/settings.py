@@ -154,7 +154,7 @@ EMAIL_PORT = 587
 
 # CKEDITOR
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-CKEDITOR_UPLOAD_PATH = "media/ckeditor_uploads/"
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
 CKEDITOR_CONFIGS = {
     'allowedContent': True,
     'skin': 'office2013',
