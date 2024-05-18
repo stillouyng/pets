@@ -19,7 +19,8 @@ def persons_view(request, slug: str):
 @login_required
 def user_profile(request):
     profile = models.Person.objects.get(user=request.user)
-    return render(request, template_name="registration/profile.html", context={'profile': profile})
+    form = forms.UploadMusicForm()
+    return render(request, template_name="registration/profile.html", context={'profile': profile, 'music_form': form})
 
 
 @login_required
@@ -100,3 +101,20 @@ def blog_view(request):
     blogs = models.Blog.objects.all()
     form = forms.BlogForm()
     return render(request, template_name="blog.html", context={"blogs": blogs, "form": form})
+
+
+def forms_song_view(request):
+    context = {}
+    if request.method == "POST":
+        form = forms.UploadMusicForm(request.POST, request.FILES)
+        print(request.FILES, request.POST, sep=" | ")
+        print(form.errors)
+        if form.is_valid():
+            user = models.Person.objects.get(slug=request.POST.get("slug"))
+            user.song = request.FILES['song']
+            user.save()
+            context['text'] = "Song was uploaded successfully!"
+        else:
+            context['text'] = "There is some error :("
+        context['previous_page'] = request.POST.get("previous_page")
+    return render(request, template_name="success_form.html", context=context)

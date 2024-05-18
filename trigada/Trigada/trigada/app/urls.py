@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 api_urlpatterns = [
+    path("api/v1/song_form_success/", views.forms_song_view, name="song_form"),
 ]
 
 urlpatterns = [

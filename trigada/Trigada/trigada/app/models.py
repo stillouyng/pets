@@ -20,6 +20,9 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.user.username}"
 
+    def get_filename(self):
+        return os.path.basename(self.song.name).replace("_", " ")
+
     class Meta:
         verbose_name = "Person"
         verbose_name_plural = "Persons"

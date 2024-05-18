@@ -19,6 +19,23 @@ class SearchTabsForm(forms.Form):
     )
 
 
+class UploadMusicForm(ModelForm):
+    error_css_class = "error-uploading-song transparent"
+    required_css_class = "form-text transparent"
+    song = forms.FileField(
+        label="Upload New Maker Song",
+        widget=forms.FileInput(
+            attrs={
+                "class": "song-upload-input oxanium transparent"
+            }
+        )
+    )
+
+    class Meta:
+        model = models.Person
+        fields = ("song", )
+
+
 class AnecdoteForm(ModelForm):
 
     class Meta:
