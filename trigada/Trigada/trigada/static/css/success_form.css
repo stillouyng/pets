@@ -1,0 +1,12 @@
+
+.success-form-title {
+    color: var(--light-blue);
+    font-size: 48px;
+    margin-bottom: 25px;
+}
+
+.success-form-text {
+    font-size: 24px;
+    color: var(--white);
+    margin-top: 25px;
+}

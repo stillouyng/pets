@@ -1,0 +1,18 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+Completed!
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/success_form.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <span class="success-form-title oxanium transparent">{{ text }}</span>
+    <a class="success-form-text oxanium transparent" href="{{ previous_page }}">Back to previous page!</a>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
