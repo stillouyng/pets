@@ -10,12 +10,6 @@ Blog
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock %}
 
-{% block audio %}
-	<audio id="player" controls autoplay="autoplay">
-		<source src="{% static 'audio/Derek_Pope_-_Encore.mp3' %}" type="audio/mp3">
-	</audio>
-{% endblock %}
-
 {% block wrapper %}
     <span class="blog-title oxanium transparent">Blog</span>
     {% if blogs %}
@@ -38,11 +32,6 @@ Blog
 {% endblock %}
 
 {% block scripts %}
-	<script src="https://cdn.plyr.io/3.4.7/plyr.js"></script>
-	<script>
-		const player = new Plyr('#player');
-		player.volume = 0.1;
-	</script>
     <script src="{% static 'js/to_users.js' %}"></script>
     <script src="{% static 'js/blog.js' %}"></script>
 {% endblock %}
