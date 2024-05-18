@@ -68,6 +68,7 @@
     align-items: flex-end;
     height: 100%;
     animation: add-info-show 1s forwards;
+    overflow: hidden;
 }
 
 .additional-information.add-info-show {
@@ -80,7 +81,7 @@
     }
 
     100% {
-        height: 100%;
+        height: 50%;
     }
 }
 
@@ -123,4 +124,44 @@
 
 .button:hover {
     scale: 1.1;
+}
+
+.form-upload-song {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    margin-top: 10px;
+    border: 1px solid var(--light-blue);
+    border-radius: 20px;
+}
+
+.form-text {
+    font-size: 20px;
+    color: var(--light-blue);
+    margin: 10px 5px 10px 0;
+}
+
+.song-upload-input {
+    color: var(--white);
+    padding: 0.5em 0;
+}
+
+::file-selector-button {
+    font-weight: bold;
+    color: var(--white);
+    background-color: var(--light-dark);
+    padding: 0.5em;
+    border: thin solid var(--black);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.send-an-music-form-button {
+    border: 0;
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: var(--light-blue);
+    font-size: 24px;
+    cursor: pointer;
 }

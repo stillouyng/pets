@@ -50,6 +50,17 @@ Profile - {{ profile.user.username }}
                 </div>
                 <div class="underline transparent"></div>
             </div>
+            {% if profile.is_maker %}
+                <form class="form-upload-song transparent" action="{% url 'song_form' %}" method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <input type="hidden" name="previous_page" value="{{ request.path }}">
+                    <input type="hidden" name="slug" value="{{ profile.slug }}">
+                    {{ music_form.media }}
+                    {{ music_form.as_p }}
+                    <input id="send-music-form" class="send-an-music-form-button oxanium transparent" type="submit" placeholder="Upload">
+                </form>
+                <span class="profile-text transparent">{% for song_name in profile.get_filename %}{{ song_name }}{% endfor %}</span>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
