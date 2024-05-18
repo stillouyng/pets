@@ -72,7 +72,7 @@ input, select {
     font-size: 18px;
 }
 
-button {
+button.send-an-anecdote-form-button {
     margin-top: 30px;
     padding: 10 5px;
     border-radius: 10px;

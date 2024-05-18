@@ -29,7 +29,7 @@ Anecdotes
         {{ form.media }}
         {{ form.as_p }}
         <input type="hidden" name="writer" id="id_writer" value="{{ request.user.pk }}">
-        <button id="send-anecdote-form" type="submit">Submit!</button>
+        <button id="send-anecdote-form" class="send-an-anecdote-form-button transparent" type="submit">Submit!</button>
     </form>
 {% endblock %}
 
