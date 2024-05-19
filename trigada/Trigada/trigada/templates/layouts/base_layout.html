@@ -19,6 +19,7 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <div id="preloader" class="preloader"></div>
     <header class="header">
         <img class="menu-image transparent" id="menu-button" src="{% static 'img/menu_button.png' %}">
         <div class="logo transparent">
@@ -40,7 +41,7 @@
             <a href="/accounts/login/" class="menu-font menu-link oxanium transparent">Log in</a>
         {% endif %}
     </div>
-    <audio id="player" controls autoplay="autoplay">
+    <audio id="player" controls>
             {% if 'users' in request.path %}
                 <source src="/media/{{ makers.song }}" type="audio/mp3">
             {% elif 'profile' in request.path %}
@@ -63,10 +64,7 @@
     {% block scripts %}
     {% endblock %}
     <script src="https://cdn.plyr.io/3.4.7/plyr.js"></script>
-	<script>
-		const player = new Plyr('#player');
-		player.volume = 0.05;
-	</script>
+	<script src="{% static 'js/layout/playerSetUp.js' %}"></script>
     <script src="{% static 'js/layout/base_layout.js' %}"></script>
 </footer>
 </html>
