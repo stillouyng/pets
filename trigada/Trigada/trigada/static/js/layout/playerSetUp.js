@@ -12,6 +12,7 @@ window.addEventListener("load", () => {
     try {
         player.volume = settings['volume'];
         player.speed = settings['speed'];
+        player.muted = settings['muted'];
     } catch (err) {}
 
     // Get song name. This is the biggest piece of dog shit...
@@ -32,6 +33,7 @@ window.addEventListener("load", () => {
         player_settings = {
             "volume": player.volume,
             "speed": player.speed,
+            "muted": player.muted
         }
 
         json_data = {
