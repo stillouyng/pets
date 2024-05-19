@@ -41,7 +41,7 @@
             <a href="/accounts/login/" class="menu-font menu-link oxanium transparent">Log in</a>
         {% endif %}
     </div>
-    <audio id="player" controls>
+    <audio id="player" controls preload="auto">
             {% if 'users' in request.path %}
                 <source src="/media/{{ makers.song }}" type="audio/mp3">
             {% elif 'profile' in request.path %}
