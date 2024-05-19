@@ -45,7 +45,7 @@
             {% if 'users' in request.path %}
                 <source src="/media/{{ makers.song }}" type="audio/mp3">
             {% elif 'profile' in request.path %}
-                <source src="/media/{{profile.song }}" type="audio/mp3">
+                <source src="/media/{{ profile.song }}" type="audio/mp3">
             {% else %}
 		        <source src="{% static 'audio/Derek_Pope_-_Encore.mp3' %}" type="audio/mp3">
             {% endif %}
