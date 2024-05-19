@@ -3,6 +3,8 @@ from . import views
 
 api_urlpatterns = [
     path("api/v1/song_form_success/", views.forms_song_view, name="song_form"),
+    path("api/v1/blog_form_success/", views.forms_blog_view, name="blog_form"),
+    path("api/v1/anecdote_form_success/", views.anecdote_form_view, name="anecdote_form"),
 ]
 
 urlpatterns = [

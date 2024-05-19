@@ -25,16 +25,6 @@ def user_profile(request):
 
 @login_required
 def anecdote_view(request):
-    if request.method == "POST":
-        form = forms.AnecdoteForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
-            anecdote = models.Anecdote(
-                title=data.get('title'),
-                text=data.get('text'),
-                writer=models.Person.objects.get(user=request.user)
-            )
-            anecdote.save()
     anecdotes = models.Anecdote.objects.all()
     form = forms.AnecdoteForm()
     context = {"anecdotes": anecdotes, "form": form}
@@ -88,6 +78,32 @@ def tab_view(request, slug: str):
 
 
 def blog_view(request):
+    blogs = models.Blog.objects.all()
+    form = forms.BlogForm()
+    return render(request, template_name="blog.html", context={"blogs": blogs, "form": form})
+
+
+def anecdote_form_view(request):
+    context: dict = {}
+    if request.method == "POST":
+        form = forms.AnecdoteForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            anecdote = models.Anecdote(
+                title=data.get('title'),
+                text=data.get('text'),
+                writer=models.Person.objects.get(user=request.user)
+            )
+            anecdote.save()
+            context['text'] = "Anecdote was added successfully!"
+        else:
+            context['text'] = "There is some error :("
+        context['previous_page'] = request.POST.get("previous_page")
+    return render(request, template_name="success_form.html", context=context)
+
+
+def forms_blog_view(request):
+    context: dict = {}
     if request.method == "POST":
         form = forms.BlogForm(request.POST)
         if form.is_valid():
@@ -98,17 +114,17 @@ def blog_view(request):
                 writer=models.Person.objects.get(user=request.user)
             )
             blog.save()
-    blogs = models.Blog.objects.all()
-    form = forms.BlogForm()
-    return render(request, template_name="blog.html", context={"blogs": blogs, "form": form})
+            context['text'] = "Blog was added successfully!"
+        else:
+            context['text'] = 'There is some error :('
+        context['previous_page'] = request.POST.get("previous_page")
+    return render(request, template_name="success_form.html", context=context)
 
 
 def forms_song_view(request):
-    context = {}
+    context: dict = {}
     if request.method == "POST":
         form = forms.UploadMusicForm(request.POST, request.FILES)
-        print(request.FILES, request.POST, sep=" | ")
-        print(form.errors)
         if form.is_valid():
             user = models.Person.objects.get(slug=request.POST.get("slug"))
             user.song = request.FILES['song']

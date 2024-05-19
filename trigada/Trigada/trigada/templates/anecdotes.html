@@ -24,10 +24,11 @@ Anecdotes
             </div>
         {% endfor %}
     </div>
-    <form id="anecdote-form" class="form-anecdote hidden transparent" action="{% url 'anecdotes' %}" method="POST">
+    <form id="anecdote-form" class="form-anecdote hidden transparent" action="{% url 'anecdote_form' %}" method="POST">
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
+        <input type="hidden" name="previous_page" value="{{ request.path }}">
         <input type="hidden" name="writer" id="id_writer" value="{{ request.user.pk }}">
         <button id="send-anecdote-form" class="send-an-anecdote-form-button transparent" type="submit">Submit!</button>
     </form>
