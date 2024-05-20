@@ -3,12 +3,6 @@ player.volume = 0.05;
 player.speed = 1;
 player.loop = true;
 
-const audio = document.getElementById("player");
-const audioContext = new AudioContext();
-const audioSource = audioContext.createMediaElementSource(audio);
-const audioAnalyser = audioContext.createAnalyser(audio);
-const numberOfBars = 1000; // for bars use 813
-
 window.addEventListener("load", () => {
     // turn off preloader
     document.getElementById("preloader").style.display = "none";
@@ -23,14 +17,18 @@ window.addEventListener("load", () => {
 
     // Get song name. This is the biggest piece of dog shit...
     const song_name = player.source.split("/")[player.source.split("/").length - 1].split("-")[1].replace("_", "").split(".")[0];
-    // Set currentTime and play
+    // Set currentTime
     try {
         const song_data = JSON.parse(localStorage.getItem(song_name));
         player.currentTime = parseInt(song_data['currentTime']);
     } catch (err) {
         player.currentTime = 0;
     }
-    player.play();
+
+    // Play if parameter playing in settings set to True
+    if (settings['playing']) {
+        player.play();
+    }
 
     const allTime = document.getElementsByClassName("plyr__time plyr__time--current")[0].innerHTML;
     const allTimeInSeconds = (parseInt(allTime.split(":")[0]) * 60 ) + parseInt(allTime.split(":")[1]);
@@ -39,7 +37,8 @@ window.addEventListener("load", () => {
         player_settings = {
             "volume": player.volume,
             "speed": player.speed,
-            "muted": player.muted
+            "muted": player.muted,
+            "playing": player.playing,
         }
 
         json_data = {
@@ -49,6 +48,14 @@ window.addEventListener("load", () => {
         localStorage.setItem("player_settings", JSON.stringify(player_settings));
     }, 1000);
 });
+
+// VISUALISATION
+const audio = document.getElementById("player");
+const audioContext = new AudioContext();
+const audioSource = audioContext.createMediaElementSource(audio);
+const audioAnalyser = audioContext.createAnalyser(audio);
+const numberOfBars = 1000; // for bars use 813
+
 
 // Connect the source to the analyser
 audioSource.connect(audioAnalyser);
