@@ -111,7 +111,7 @@ def forms_blog_view(request):
             blog = models.Blog(
                 title=data.get('title'),
                 text=data.get('text'),
-                writer=models.Person.objects.get(user=request.user)
+                user=models.Person.objects.get(user=request.user)
             )
             blog.save()
             context['text'] = "Blog was added successfully!"
