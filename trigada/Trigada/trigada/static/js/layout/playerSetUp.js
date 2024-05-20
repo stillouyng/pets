@@ -3,6 +3,12 @@ player.volume = 0.05;
 player.speed = 1;
 player.loop = true;
 
+const audio = document.getElementById("player");
+const audioContext = new AudioContext();
+const audioSource = audioContext.createMediaElementSource(audio);
+const audioAnalyser = audioContext.createAnalyser(audio);
+const numberOfBars = 813;
+
 window.addEventListener("load", () => {
     // turn off preloader
     document.getElementById("preloader").style.display = "none";
@@ -43,3 +49,54 @@ window.addEventListener("load", () => {
         localStorage.setItem("player_settings", JSON.stringify(player_settings));
     }, 1000);
 });
+
+// Connect the source to the analyser
+audioSource.connect(audioAnalyser);
+audioSource.connect(audioContext.destination);
+
+// Get frequencies
+const frequencyData = new Uint8Array(audioAnalyser.frequencyBinCount);
+audioAnalyser.getByteFrequencyData(frequencyData);
+
+// Get the visualiser container
+const visualiserContainer = document.querySelector(".visualiser-container");
+
+// Create a set of pre-defined bars
+//for (let i = 0; i < numberOfBars; i++) {
+//    const bar = document.createElement("DIV");
+//    bar.setAttribute("id", "bar_" + i);
+//    bar.setAttribute("class", "visualiser-container__bar");
+//    visualiserContainer.appendChild(bar);
+//}
+
+const moonImage = document.getElementById("moon-icon");
+console.log(moonImage);
+// Adjust the bar heights according to the frequency data
+function renderBars() {
+    audioAnalyser.getByteFrequencyData(frequencyData);
+
+    var sumOfAllValues = 0;
+
+    for (let i = 0; i < numberOfBars; i++) {
+        const fd = frequencyData[i];
+
+        sumOfAllValues += fd;
+
+//        const bar = document.querySelector("#bar_" + i);
+//        if (!bar) {
+//            continue
+//        }
+
+//        const barHeight = Math.max(4, fd || 0);
+//        bar.style.height = barHeight + "px";
+
+    }
+
+    const blur = Math.floor(sumOfAllValues/numberOfBars);
+    const spread = Math.floor(Math.floor(sumOfAllValues/numberOfBars)/5);
+    moonImage.style.boxShadow = "0 0 " + blur + "px " + spread + "px var(--white)";
+
+    window.requestAnimationFrame(renderBars);
+}
+
+renderBars();

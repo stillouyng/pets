@@ -1,0 +1,16 @@
+.visualiser-container {
+    position: absolute;
+    top: 500px;
+    left: 0;
+    height: 200px;
+    text-align: center;
+}
+
+.visualiser-container__bar {
+    display: inline-block;
+    background: white;
+    margin: 0;
+    width: 1px;
+    max-height: 200px;
+    position: absolute;
+}
