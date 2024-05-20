@@ -150,6 +150,8 @@ footer {
     top: 150px;
     left: 50px;
     border-radius: 250px;
+    background-color: var(--light-dark);
+    filter: drop-shadow(inset 0px 0px 10px 2px var(--white));
 }
 
 .preloader {

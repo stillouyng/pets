@@ -70,7 +70,7 @@ const visualiserContainer = document.querySelector(".visualiser-container");
 //}
 
 const moonImage = document.getElementById("moon-icon");
-console.log(moonImage);
+
 // Adjust the bar heights according to the frequency data
 function renderBars() {
     audioAnalyser.getByteFrequencyData(frequencyData);
@@ -94,7 +94,7 @@ function renderBars() {
 
     const blur = Math.floor(sumOfAllValues/numberOfBars);
     const spread = Math.floor(Math.floor(sumOfAllValues/numberOfBars)/5);
-    moonImage.style.boxShadow = "0 0 " + blur + "px " + spread + "px var(--white)";
+    moonImage.style.boxShadow = "inset 0 0 " + (Math.floor(blur/10)) + "px " + (Math.floor(spread/2)) + "px var(--moon-color), 0 0 " + blur + "px " + spread + "px var(--white)";
 
     window.requestAnimationFrame(renderBars);
 }
