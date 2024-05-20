@@ -7,7 +7,7 @@ const audio = document.getElementById("player");
 const audioContext = new AudioContext();
 const audioSource = audioContext.createMediaElementSource(audio);
 const audioAnalyser = audioContext.createAnalyser(audio);
-const numberOfBars = 813;
+const numberOfBars = 1000; // for bars use 813
 
 window.addEventListener("load", () => {
     // turn off preloader
@@ -76,6 +76,7 @@ function renderBars() {
     audioAnalyser.getByteFrequencyData(frequencyData);
 
     var sumOfAllValues = 0;
+    var sumOfBlueValues = 0;
 
     for (let i = 0; i < numberOfBars; i++) {
         const fd = frequencyData[i];
@@ -92,9 +93,24 @@ function renderBars() {
 
     }
 
+    for (i = 600; i < frequencyData.length; i++) {
+        const fd = frequencyData[i];
+        sumOfBlueValues += fd;
+    }
+
+    // Primal box shadow
     const blur = Math.floor(sumOfAllValues/numberOfBars);
     const spread = Math.floor(Math.floor(sumOfAllValues/numberOfBars)/5);
-    moonImage.style.boxShadow = "inset 0 0 " + (Math.floor(blur/10)) + "px " + (Math.floor(spread/2)) + "px var(--moon-color), 0 0 " + blur + "px " + spread + "px var(--white)";
+    // Inset box shadow
+    const blurInset = Math.floor(blur/10);
+    const spreadInset = Math.floor(spread/4);
+    // Blue box shadow
+    const blurBlue = Math.floor(sumOfBlueValues/600);
+    const spreadBlue = Math.floor(Math.floor(sumOfBlueValues/600)/5);
+
+    moonImage.style.boxShadow = "inset 0 0 " + blurInset + "px " + spreadInset + "px var(--moon-color), " +
+    "0 0 " + blur + "px " + spread + "px var(--white), " +
+    "0px 0px " + blurBlue + "px " + spreadBlue + "px var(--moon-shine)";
 
     window.requestAnimationFrame(renderBars);
 }
