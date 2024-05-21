@@ -1,0 +1,20 @@
+
+.presentation-title {
+    font-size: 48px;
+    color: var(--light-blue);
+    margin: 50px 0;
+}
+
+.presentation-block {
+    margin: 40px 0;
+}
+
+.maker-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 5px;
+    cursor: pointer;
+    position: absolute;
+}

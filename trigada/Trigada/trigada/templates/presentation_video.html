@@ -1,0 +1,25 @@
+{% extends 'layouts/base_layout.html' %}
+{% load static %}
+
+
+{% block title %}
+PRESENTATION
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/presentation_video.css' %}">
+{% endblock %}
+
+{% block wrapper %}
+    <span class="presentation-title transparent">PRESENTATION</span>
+    <div class="presentation-block transparent">
+        <video controls width="640" height="480" controlsList="nodownload" oncontextmenu="return false;">
+            <source src="{% static 'video/presentation.webm' %}" type="video/webm" />
+        </video>
+    </div>
+    <a href="/all_videos/" class="transparent">Much more videos!</a>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/to_users.js' %}"></script>
+{% endblock %}

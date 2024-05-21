@@ -32,6 +32,12 @@ def anecdote_view(request):
 
 
 @login_required
+def presentation_video_view(request):
+    video = models.Video.objects.get(title='PRESENTATION')
+    return render(request, template_name="presentation_video.html", context={"item": video})
+
+
+@login_required
 def video_view(request):
     videos = models.Video.objects.all()
     return render(request, template_name="videos.html", context={"videos": videos})
