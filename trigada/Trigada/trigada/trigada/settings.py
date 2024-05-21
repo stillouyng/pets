@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import socket
 import os
 
 
@@ -29,6 +30,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
+# Append your ip into allowed_hosts
+if DEBUG:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        ALLOWED_HOSTS.append(s.getsockname()[0])
+    finally:
+        s.close()
 
 # Application definition
 
