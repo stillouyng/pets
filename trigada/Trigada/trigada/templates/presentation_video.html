@@ -11,15 +11,24 @@ PRESENTATION
 {% endblock %}
 
 {% block wrapper %}
-    <span class="presentation-title transparent">PRESENTATION</span>
+    <span class="presentation-title honk transparent">PRESENTATION</span>
     <div class="presentation-block transparent">
-        <video controls width="100%" height="480" controlsList="nodownload" oncontextmenu="return false;">
+        <video class="main-video-border" id="main-video" controls width="100%" height="480" controlsList="nodownload" oncontextmenu="return false;">
             <source src="{% static 'video/presentation.webm' %}" type="video/webm" />
         </video>
     </div>
-    <a href="/all_videos/" class="transparent">Much more videos!</a>
+    <a href="/all_videos/" class="video-buttons honk transparent">Much more videos!</a>
+    <video class="background-video" muted autoplay loop>
+        <source src="{% static 'video/presentation.webm' %}" type="video/webm">
+    </video>
 {% endblock %}
 
 {% block scripts %}
+    <script>
+        const video = document.getElementById('main-video');
+        video.addEventListener('fullscreenchange', function() {
+             video.classList.toggle('main-video-border');
+        });
+    </script>
     <script src="{% static 'js/to_users.js' %}"></script>
 {% endblock %}
