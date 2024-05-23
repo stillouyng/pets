@@ -25,10 +25,7 @@ window.addEventListener("load", () => {
         player.currentTime = 0;
     }
 
-    // Play if parameter playing in settings set to True
-    if (settings['playing']) {
-        player.play();
-    }
+    player.play();
 
     const allTime = document.getElementsByClassName("plyr__time plyr__time--current")[0].innerHTML;
     const allTimeInSeconds = (parseInt(allTime.split(":")[0]) * 60 ) + parseInt(allTime.split(":")[1]);
