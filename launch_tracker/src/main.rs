@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use sysinfo::{System, Process};
+use configparser::ini::{Ini};
 use serde_json::{Value, json, to_writer_pretty};
 use chrono::prelude::*;
 
@@ -8,6 +9,16 @@ use chrono::prelude::*;
 struct DateInfo {
     date: NaiveDate,
     time: NaiveTime
+}
+
+const CONFIG_FILE: &str = "config/config.ini";
+
+
+fn read_config() -> String {
+    let mut config: Ini = Ini::new();
+    let _map = config.load(CONFIG_FILE);
+    let process_name: String = config.get("DEFAULT", "process_name").unwrap();
+    return process_name;
 }
 
 fn get_date() -> DateInfo {
@@ -32,8 +43,9 @@ fn collect_json(data: &Process, datetime: DateInfo) -> Value {
     return json_data
 }
 
-fn write_to_file(data: Value) -> std::io::Result<()> {
-    let file = File::create("config.json")?;
+fn write_to_file(data: Value, process_name: String) -> std::io::Result<()> {
+    let filename = format!("config/{}.json", process_name);
+    let file = File::create(filename)?;
     let mut writer = BufWriter::new(file);
     to_writer_pretty(&mut writer, &data)?;
     writer.flush()?;
@@ -42,11 +54,18 @@ fn write_to_file(data: Value) -> std::io::Result<()> {
 
 
 fn main() {
+    let process_name = read_config();
     let sys: System = System::new_all();
-    for process in sys.processes_by_name("pycharm") {
-        let datetime: DateInfo = get_date();
-        let data = collect_json(process, datetime);
-        println!("Information: {data}");
-        write_to_file(data).expect("TODO: info is not saved!");
+    let mut processes = sys.processes_by_name(&process_name);
+    if processes.next().is_some() {
+        let processes = sys.processes_by_name(&process_name);
+        for process in processes {
+            let datetime: DateInfo = get_date();
+            let data = collect_json(process, datetime);
+            println!("Information saved!");
+            write_to_file(data, process_name.clone()).expect("ERROR: info is not saved!");
+        }
+    } else {
+        println!("No process named {process_name} found");
     }
 }
