@@ -50,12 +50,18 @@
     margin: 5px 0;
 }
 
+.buttons-block {
+    height: 100%;
+    align-content: center;
+    text-align: center;
+}
+
 .link-style {
     font-size: 24px;
-    text-align: center;
     margin: 10px 0;
     color: var(--white);
     text-decoration: none;
+    display: block;
 }
 
 .link-style:hover {
