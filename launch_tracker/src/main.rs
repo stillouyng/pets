@@ -1,8 +1,10 @@
 use std::fs::File;
-use std::io::{BufWriter, Write};
+use std::error::Error;
+use std::io::{BufWriter, Write, BufReader};
 use sysinfo::{System, Process};
 use configparser::ini::{Ini};
-use serde_json::{Value, json, to_writer_pretty};
+use serde_json::{Value, json, to_writer, from_reader};
+use serde::{Deserialize};
 use chrono::prelude::*;
 
 
@@ -10,6 +12,22 @@ struct DateInfo {
     date: NaiveDate,
     time: NaiveTime
 }
+
+#[derive(Debug, Deserialize)]
+struct JsonData {
+    date: String,
+    time: String,
+    fields: ProcessData,
+}
+
+#[derive(Debug, Deserialize)]
+struct ProcessData {
+    name: String,
+    pid: String,
+    memory: String,
+    cpu: String,
+}
+
 
 const CONFIG_FILE: &str = "config/config.ini";
 
@@ -22,15 +40,15 @@ fn read_config() -> String {
 }
 
 fn get_date() -> DateInfo {
-    let datetime = Local::now();
-    let date = datetime.date_naive();
-    let time = datetime.time();
+    let datetime: DateTime<Local> = Local::now();
+    let date: NaiveDate = datetime.date_naive();
+    let time: NaiveTime = datetime.time();
     let date_info = DateInfo{date, time};
     return date_info;
 }
 
 fn collect_json(data: &Process, datetime: DateInfo) -> Value {
-    let json_data = json!({
+    let json_data: Value = json!({
         "date": format!("{}", datetime.date),
         "time": format!("{}", datetime.time),
         "fields": {
@@ -43,29 +61,41 @@ fn collect_json(data: &Process, datetime: DateInfo) -> Value {
     return json_data
 }
 
-fn write_to_file(data: Value, process_name: String) -> std::io::Result<()> {
+fn read_json(process_name: String) -> std::result::Result<JsonData, Box<dyn Error>> {
     let filename = format!("config/{}.json", process_name);
-    let file = File::create(filename)?;
-    let mut writer = BufWriter::new(file);
-    to_writer_pretty(&mut writer, &data)?;
+    let file = File::open(filename)?;
+    let reader = BufReader::new(file);
+    let process = from_reader(reader)?;
+    Ok(process)
+}
+
+fn write_to_file(data: Value, process_name: String) -> std::io::Result<()> {
+    let filename: String = format!("config/{}.json", process_name);
+    let file: File = File::create(filename)?;
+    let mut writer: BufWriter<File> = BufWriter::new(file);
+    to_writer(&mut writer, &data)?;
     writer.flush()?;
     Ok(())
 }
 
 
-fn main() {
-    let process_name = read_config();
+fn main() -> std::result::Result<(), Box<dyn Error>>{
+    let process_name: String = read_config();
     let sys: System = System::new_all();
+    let test = read_json(process_name.clone())?;
+    println!("{:?}", test);
     let mut processes = sys.processes_by_name(&process_name);
     if processes.next().is_some() {
         let processes = sys.processes_by_name(&process_name);
         for process in processes {
             let datetime: DateInfo = get_date();
-            let data = collect_json(process, datetime);
-            println!("Information saved!");
+            let data: Value = collect_json(process, datetime);
+            // println!("Information saved!");
+            println!("{:?}", data);
             write_to_file(data, process_name.clone()).expect("ERROR: info is not saved!");
         }
     } else {
         println!("No process named {process_name} found");
     }
+    Ok(())
 }
