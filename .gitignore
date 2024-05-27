@@ -161,4 +161,4 @@ cython_debug/
 .idea/
 Music Visualiser/audio/
 video/
-launch_tracker/config/*.json
+launch_tracker/*/*.json
