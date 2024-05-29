@@ -16,7 +16,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn check_date_in_get_date_function() {
         let date_info_result = get_date();
         let datetime = Local::now();
@@ -25,7 +24,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn create_dir_if_dir_exist() {
         let create_dir_result = create_dir_if_not_exist("config");
         match create_dir_result {
@@ -39,7 +37,6 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn create_and_delete_dir() {
         let dir_result = create_dir_if_not_exist("test_dir");
         match dir_result {
@@ -67,7 +64,6 @@ mod tests {
 
     #[test]
     #[should_panic]
-    #[ignore]
     fn count_files_in_non_existence_dir() {
         let result = count_files_in_temp();
         "There is no directory config/temp.";
