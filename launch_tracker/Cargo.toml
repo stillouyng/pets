@@ -11,3 +11,5 @@ serde_json = "1.0.117"
 chrono = "0.4.38"
 configparser = "3.0.4"
 serde = { version = "1.0.202", features = ["derive"] }
+log = "0.4.21"
+simple-logging = "2.0.2"
