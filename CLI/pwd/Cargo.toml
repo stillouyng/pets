@@ -1,0 +1,9 @@
+[package]
+name = "pwd"
+version = "0.1.0"
+edition = "2021"
+
+[build]
+rustflags = ["-Cprefer-dynamic"]
+
+[dependencies]
