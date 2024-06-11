@@ -38,10 +38,14 @@ fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
 }
 
 fn print_internal_files(filepath: path::PathBuf) {
-    let files: fs::ReadDir = fs::read_dir(filepath).unwrap();
-    for file in files {
-        let sub_filepath: path::PathBuf = file.unwrap().path();
-        print_sub_file(sub_filepath);
+    let files_result = fs::read_dir(filepath.clone());
+    match files_result {
+        Ok(files) =>
+            for file in files {
+                let sub_filepath: path::PathBuf = file.unwrap().path();
+                print_sub_file(sub_filepath);
+            }
+        Err(error) => print_error(error)
     }
 }
 
@@ -63,6 +67,10 @@ fn print_underline() {
         i += 1;
     }
     println!();
+}
+
+fn print_error<T: std::error::Error>(error: T) {
+    println!(" - {}", error);
 }
 
 fn print_header() {
