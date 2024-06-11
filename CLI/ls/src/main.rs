@@ -33,6 +33,19 @@ fn remove_backslash_from_path(filepath: path::PathBuf) -> String{
     return filename
 }
 
+fn get_file_size(filepath: path::PathBuf) -> Result<u64, &'static str> {
+    let size_result = filepath.symlink_metadata();
+    return match size_result {
+        Ok(size) => {
+            Ok(size.len())
+        },
+        Err(_) => {
+            Ok("None".parse().unwrap())
+        }
+    }
+
+}
+
 fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
     let filename = remove_backslash_from_path(filepath.clone());
     let extend;
@@ -41,9 +54,20 @@ fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
     } else {
         extend = "file".white().bold();
     }
-    println!("{0: <35} | {1: <4} | ", filename, extend);
-    if filepath.clone().is_dir() && with_iternal_files {
-        print_internal_files(filepath);
+    let size_result = get_file_size(filepath.clone());
+    match size_result {
+        Ok(size) => {
+            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, size);
+            if filepath.clone().is_dir() && with_iternal_files {
+                print_internal_files(filepath);
+            }
+        },
+        Err(none_size) => {
+            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, none_size);
+            if filepath.clone().is_dir() && with_iternal_files {
+                print_internal_files(filepath);
+            }
+        }
     }
 }
 
@@ -67,12 +91,20 @@ fn print_sub_file(filepath: path::PathBuf) {
     } else {
         extend = "file".white().bold();
     }
-    println!("– {0: <33} | {1: <4} | ", filename, extend);
+    let size_result = get_file_size(filepath);
+    match size_result {
+        Ok(size) => {
+            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, size);
+        }
+        Err(none_size) => {
+            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, none_size);
+        }
+    }
 }
 
 fn print_underline() {
     let mut i = 0;
-    while i < 44 {
+    while i < 54 {
         print!("-");
         i += 1;
     }
@@ -84,7 +116,7 @@ fn print_error<T: std::error::Error>(error: T) {
 }
 
 fn print_header() {
-    println!("{0: <35} | {1: <4} |", "FILEPATH", "TYPE");
+    println!("{0: <35} | {1: <4} | {2: <7} |", "FILEPATH", "TYPE", "SIZE");
     print_underline();
 }
 
