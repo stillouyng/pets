@@ -1,15 +1,19 @@
-
 use std::{fs, path};
 use clap::{Parser};
+use colored::Colorize;
 
 
 /// Program for print files in directory
 #[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
+#[command(author, version, about, long_about = None)]
 struct Properties {
-    /// Shows internal files in directories
-    #[arg(short, long, default_value = "None")]
-    flags: String,
+    /// Print internal files in directories
+    #[arg(short = 'R', action)]
+    r: bool,
+
+    /// Print files in the specified directory
+    #[arg(short, long, default_value = ".\\")]
+    path: String
 }
 
 fn remove_first_chars(str: String) -> String {
@@ -20,11 +24,12 @@ fn remove_first_chars(str: String) -> String {
 }
 
 fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
-    let mut extend: &str = "file";
     let filename: String = remove_first_chars(filepath.display().to_string());
+    let extend;
     if filepath.clone().is_dir() {
-        extend = "dir";
-
+        extend = "dir".yellow().bold();
+    } else {
+        extend = "file".white().bold();
     }
     println!("{0: <35} | {1: <4} | ", filename, extend);
     if filepath.clone().is_dir() && with_iternal_files {
@@ -41,23 +46,41 @@ fn print_internal_files(filepath: path::PathBuf) {
 }
 
 fn print_sub_file(filepath: path::PathBuf) {
-    let mut extend: &str = "file";
     let filename = remove_first_chars(filepath.display().to_string());
+    let extend;
     if filepath.is_dir() {
-        extend = "dir";
+        extend = "dir".yellow().bold();
+    } else {
+        extend = "file".white().bold();
     }
     println!("– {0: <33} | {1: <4} | ", filename, extend);
 }
 
+fn print_underline() {
+    let mut i = 0;
+    while i < 44 {
+        print!("-");
+        i += 1;
+    }
+    println!();
+}
+
+fn print_header() {
+    println!("{0: <35} | {1: <4} |", "FILEPATH", "TYPE");
+    print_underline();
+}
+
 fn main() {
-    let files: fs::ReadDir = fs::read_dir(".\\").unwrap();
     let args: Properties = Properties::parse();
+    print_header();
+    let files: fs::ReadDir = fs::read_dir(args.path).unwrap();
     for file in files {
         let filepath: path::PathBuf = file.unwrap().path();
-        if args.flags == "R" {
+        if args.r {
             print_path(filepath, true);
         } else {
             print_path(filepath, false);
         }
     }
+    print_underline();
 }
