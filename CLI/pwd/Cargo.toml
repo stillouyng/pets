@@ -1,9 +1,10 @@
 [package]
 name = "pwd"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 [build]
 rustflags = ["-Cprefer-dynamic"]
 
 [dependencies]
+clap = { version = "4.5.7", features = ["derive"] }
