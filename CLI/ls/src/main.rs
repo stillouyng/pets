@@ -23,8 +23,18 @@ fn remove_first_chars(str: String) -> String {
     return chars.as_str().to_string()
 }
 
+fn remove_backslash_from_path(filepath: path::PathBuf) -> String{
+    let filename: String;
+    if filepath.display().to_string().contains(".\\") {
+        filename = remove_first_chars(filepath.display().to_string());
+    } else {
+        filename = filepath.display().to_string();
+    }
+    return filename
+}
+
 fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
-    let filename: String = remove_first_chars(filepath.display().to_string());
+    let filename = remove_backslash_from_path(filepath.clone());
     let extend;
     if filepath.clone().is_dir() {
         extend = "dir".yellow().bold();
@@ -50,7 +60,7 @@ fn print_internal_files(filepath: path::PathBuf) {
 }
 
 fn print_sub_file(filepath: path::PathBuf) {
-    let filename = remove_first_chars(filepath.display().to_string());
+    let filename = remove_backslash_from_path(filepath.clone());
     let extend;
     if filepath.is_dir() {
         extend = "dir".yellow().bold();
@@ -80,15 +90,20 @@ fn print_header() {
 
 fn main() {
     let args: Properties = Properties::parse();
-    print_header();
-    let files: fs::ReadDir = fs::read_dir(args.path).unwrap();
-    for file in files {
-        let filepath: path::PathBuf = file.unwrap().path();
-        if args.r {
-            print_path(filepath, true);
-        } else {
-            print_path(filepath, false);
-        }
+    let files_result = fs::read_dir(args.path);
+    match files_result {
+        Ok(files) => {
+            print_header();
+            for file in files {
+                let filepath: path::PathBuf = file.unwrap().path();
+                if args.r {
+                    print_path(filepath, true);
+                } else {
+                    print_path(filepath, false);
+                }
+            }
+            print_underline();
+        },
+        Err(error) => print_error(error)
     }
-    print_underline();
 }
