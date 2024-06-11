@@ -3,7 +3,7 @@ use std::{fs, path};
 use clap::{Parser};
 
 
-/// Program for shows files in directory
+/// Program for print files in directory
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Properties {
