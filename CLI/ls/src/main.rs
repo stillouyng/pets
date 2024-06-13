@@ -33,14 +33,28 @@ fn remove_backslash_from_path(filepath: path::PathBuf) -> String{
     return filename
 }
 
-fn get_file_size(filepath: path::PathBuf) -> Result<u64, &'static str> {
+fn make_size_human_readable(mut size: u64) -> String {
+    return if size == 0 {
+        "".to_string()
+    } else {
+        let mut word: &str = "KB";
+        size = size / 1024;
+        if size > 1024 {
+            size = size / 1024;
+            word = "MB";
+        }
+        format!("{0: <4} {1}", size, word).to_string()
+    }
+}
+
+fn get_file_size(filepath: path::PathBuf) -> Result<String, &'static str> {
     let size_result = filepath.symlink_metadata();
     return match size_result {
         Ok(size) => {
-            Ok(size.len())
+            Ok(make_size_human_readable(size.len()))
         },
         Err(_) => {
-            Ok("None".parse().unwrap())
+            Ok("".parse().unwrap())
         }
     }
 
@@ -57,13 +71,13 @@ fn print_path(filepath: path::PathBuf, with_iternal_files: bool) {
     let size_result = get_file_size(filepath.clone());
     match size_result {
         Ok(size) => {
-            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, size);
+            println!("{0: <35} | {1: <4} | {2: <7} |", filename, extend, size);
             if filepath.clone().is_dir() && with_iternal_files {
                 print_internal_files(filepath);
             }
         },
         Err(none_size) => {
-            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, none_size);
+            println!("{0: <35} | {1: <4} | {2: <7} |", filename, extend, none_size);
             if filepath.clone().is_dir() && with_iternal_files {
                 print_internal_files(filepath);
             }
@@ -94,10 +108,10 @@ fn print_sub_file(filepath: path::PathBuf) {
     let size_result = get_file_size(filepath);
     match size_result {
         Ok(size) => {
-            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, size);
+            println!("{0: <35} | {1: <4} | {2: <7} |", filename, extend, size);
         }
         Err(none_size) => {
-            println!("{0: <35} | {1: <4} | {2: <5} B |", filename, extend, none_size);
+            println!("{0: <35} | {1: <4} | {2: <7} |", filename, extend, none_size);
         }
     }
 }
