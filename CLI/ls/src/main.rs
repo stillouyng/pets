@@ -126,7 +126,7 @@ fn print_underline() {
 }
 
 fn print_error<T: std::error::Error>(error: T) {
-    println!(" - {}", error);
+    println!("{}", error);
 }
 
 fn print_header() {
