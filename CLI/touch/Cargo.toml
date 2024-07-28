@@ -1,0 +1,9 @@
+[package]
+name = "touch"
+version = "0.1.0"
+edition = "2021"
+authors = ["stillouyng"]
+
+[dependencies]
+clap = { version = "4.5.7", features = ["derive"]}
+filetime = "0.2.23"
