@@ -16,22 +16,18 @@ struct Properties {
 
 #[derive(Debug)]
 struct FileData {
-    filename: String,
     extension: String
 }
 
 fn parse_filepath(filepath: &String) -> FileData {
-    let mut filename_split = "";
-    if filepath.contains("/") {
-        filename_split = filepath.rsplit_once("/").unwrap().1;
+    let mut extension_split = "";
+    if filepath.contains(".") {
+        extension_split = filepath.rsplit_once(".").unwrap().1;
     } else {
-        filename_split = filepath;
+        extension_split = "";
     }
-    let ext_splitter = filepath.rsplit_once(".").unwrap().1;
-
     let file: FileData = FileData {
-        filename: filename_split.to_string(),
-        extension: ext_splitter.to_string(),
+        extension: extension_split.to_string(),
     };
     return file;
 }
@@ -42,12 +38,12 @@ fn update_last_modified(filepath: &String) -> bool {
 }
 
 fn create_file(filepath: &String) -> std::io::Result<()> {
-    let file = fs::File::create(filepath)?;
+    fs::File::create(filepath)?;
     Ok(())
 }
 
 fn open_file(filepath: &String) {
-    let command = format!("start {}", filepath);
+    let command = format!(r#"start {:?}"#, std::path::PathBuf::from(filepath));
     println!("{}", command);
     let output = Command::new("cmd")
         .args(["/C", &*command])
